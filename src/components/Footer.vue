@@ -31,12 +31,14 @@ body {
   text-align: center;
 }
 
-.wave {
-  background-color: black;
-  color: white;
-  height: 20vh;
-  text-align: center;
-  font-size: 12px;
+.wave[data-v-40ab164b] {
+
+    background-color: black;
+    color: white;
+
+    text-align: center;
+    font-size: 12px;
+    margin-top: 65px;
 }
 
 .right {

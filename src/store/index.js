@@ -6,8 +6,8 @@ import router from "@/router";
 export default createStore({  
   state: {
     users: null,
-    Products: null,
-    Product: null,
+    products: null,
+    product: null,
     authModal:{
       visibility:false
     },
@@ -39,11 +39,11 @@ export default createStore({
     setusers: (state, users) => {
       state.users = users;
     },
-    setProducts: (state, Products) => {
-      state.Products = Products;
+    setProducts: (state, products) => {
+      state.Products = products;
     },
-    setProduct: (state,Product) => {
-      state.ProdProduct = Product;
+    setProduct: (state,product) => {
+      state.ProdProduct = product;
     },
     UPDATE_AUTH_MODAL_VISIBILITY(state, payload) {
       state.authModal.visibility = payload.visibility;
@@ -54,6 +54,8 @@ export default createStore({
       context.commit("setusers", null);
       window.location = "/login";
     },
+
+    // Login user
     login: async (context, data) => {
       const { email, password } = data;
       const response = await fetch(
@@ -82,26 +84,32 @@ export default createStore({
             .then((json) => context.commit("setUser", json));
         },
 
-        // get products
+        // get all products
     getProducts: async (context) => {
       fetch("http://localhost:6969/products")
         .then((res) => res.json())
         .then((Products) => {context.commit("setProducts", Products)});
     },
-    // getProduct: async (context, id) => {
-    //   fetch("https://e-com-back-end-work.herokuapp.com/products" + id)
-    //     .then((res) => res.json())
-    //     .then((Product) => context.commit("setProduct", Product));
-    // },
+
+    // get one product
+    getProduct: async (context, id) => {
+      fetch("http://localhost:6969/products/" + id)
+        .then((res) => res.json())
+        .then((Product) => context.commit("setProduct", Product));
+    },
+
+    // delete product
     deleteProduct: async (context, id) => {
       fetch("http://localhost:6969/products/" + id, {
         method: "DELETE",
       }).then(() => context.dispatch("getProducts"));
     },
-    createProduct: async (context, Product) => {
-      fetch("http://localhost:6969/products", {
+
+    // Add new product
+    createProduct: async (context, product) => {
+      fetch("http://localhost:6969/products/add_product", {
         method: "POST",
-        body: JSON.stringify(Product),
+        body: JSON.stringify(product),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -109,6 +117,8 @@ export default createStore({
         .then((response) => response.json())
         .then(() => context.dispatch("getProducts"));
     },
+
+    // edit product
     updateProduct: async (context, Product) => {
       fetch("http://localhost:6969/products" + Product.id, {
         method: "PUT",
@@ -120,6 +130,8 @@ export default createStore({
         .then((response) => response.json())
         .then(() => context.dispatch("getProducts"));
     },
+
+    // I dont know what these are
     showAuthModal({ commit }) {
       commit("UPDATE_AUTH_MODAL_VISIBILITY", {visibility: true});
     },

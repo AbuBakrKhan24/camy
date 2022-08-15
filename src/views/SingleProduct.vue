@@ -1,29 +1,26 @@
 <template>
-   <div class="onecard">
-    <div v-if = "product">
+<div class="container ">
     <div v-for ="product in product"
       v-bind:key="product.id"> 
-      <div class="d-flex justify-content-center">
-        <div class="card" style="width: 30rem">
-          <img v-bind:src="product.image1" class="img-fluid" style="width: 30rem"  />
-          <div class="card-body">
-            <p class="card-text">{{ product.name }}</p>
-            <p class="card-text">{{ product.stock }}</p>
-            <p class="card-text">R{{ product.price }}</p>
-            <!-- <p class="card-text">{{ Product.descriptions }}</p> -->
-          </div>
-        </div>
-      </div>
-      </div>
+<div class="card" style="width: 18rem;">
+  <img  v-bind:src="product.image1" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <p class="card-text">{{ product.descriptions }}</p>
+    <p class="card-text">R{{ product.price }}</p>
+    <div class="my_btn">
+
+
     </div>
+  </div>
+</div>
+  </div>
   </div>
 </template>
 <script>
-// import ProductsCard from "@/components/ProductsCard.vue";
+
 export default {
-  // props: ["id"],
-  // components: { 
-  //   ProductsCard,
+
   //    },
   data() {
     return {
@@ -40,8 +37,25 @@ export default {
 };
 </script>
 <style>
+
+.container{
+    display: flex;
+    justify-content: center;
+    max-height: 100%;
+    margin-top: 4%;
+    padding-top: 4%;
+}
+
     .onecard{
       padding: 50px;
     }
-    
+
+    .img-fluid {
+    max-width: 500px;
+    height: auto;
+}
+ .my_btn {
+    display: flex;
+    justify-content: space-around;
+} 
 </style>
